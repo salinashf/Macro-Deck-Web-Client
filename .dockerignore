@@ -6,3 +6,5 @@ README.md
 start.ps1
 # File  licence
 LICENSE
+# Docker compose 
+docker-compose.yml

@@ -640,37 +640,52 @@ function buttonPress(id) {
   var bgSRC = "";
   // Verifica si la propiedad backgroundImage existe y no está vacía
   if (divStyle.backgroundImage && divStyle.backgroundImage !== "none") {
-    const bgImg = divStyle.backgroundImage;
-    bgSRC = bgImg.replace("url(", "").replace(")", "");
+    bgSRC = divStyle.backgroundImage;
   } else {
     let divLbl = document.getElementById("label_" + id);
     let divLblStyle = window.getComputedStyle(divLbl);
-    let bgImgLbl = divLblStyle.backgroundImage;
-    bgSRC = bgImgLbl.replace("url(", "").replace(")", "");
+    bgSRC = divLblStyle.backgroundImage;
   }
 
-  let bgColor = divStyle.backgroundColor;
-  var r = document.querySelector(":root");
-  r.style.setProperty("--bgc", bgColor);
-
-  $.iGrowl({
-    type: "success",
-    icon: "vicons-envelope",
-    animation: true,
-    //title: "Boton " + id,
-    message: "Ejecuta!",
-    placement: {
-      x: "center",
-      y: "top",
-    },
-    animShow: "fadeInLeftBig",
-    animHide: "fadeOutDown",
-    delay: 100,
-    image: {
-      src: bgSRC,
-      class: "messag_alert",
-    },
-  });
+  if (bgSRC !== "none") {
+    bgSRC = bgSRC.replace("url(", "").trim().replace(")", "").trim();
+    let bgColor = divStyle.backgroundColor;
+    var r = document.querySelector(":root");
+    r.style.setProperty("--bgc", bgColor);
+    $.iGrowl({
+      type: "success",
+      icon: "vicons-envelope",
+      animation: true,
+      message: "¡Start!",
+      small: true,
+      placement: {
+        x: "center",
+        y: "top",
+      },
+      animShow: "fadeInLeftBig",
+      animHide: "fadeOutDown",
+      delay: 100,
+      image: {
+        src: bgSRC.replace(/"/g, ""), // "/images/logo.png"
+        class: "messag_alert",
+      },
+    });
+  } else {
+    $.iGrowl({
+      title: "Not Defined Icon",
+      message: "¡Start Action!",
+      icon: "vicons-support",
+      small: true,
+      animation: true,
+      placement: {
+        x: "center",
+        y: "top",
+      },
+      animShow: "fadeInLeftBig",
+      animHide: "fadeOutDown",
+      delay: 100,
+    });
+  }
 }
 
 function buttonPressRelease(id) {
