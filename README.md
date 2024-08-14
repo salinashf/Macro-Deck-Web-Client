@@ -14,6 +14,7 @@ This app uses some awesome 3rd party libraries:
 - [Bootstrap (MIT license)](https://github.com/twbs/bootstrap)
 - [NoSleep.js (MIT license)](https://github.com/richtr/NoSleep.js/)
 - [iGrowl.js (MIT license)](https://catc.github.io/iGrowl/)
+- [iosOverlay.js (MIT license)](https://taitems.github.io/iOS-Overlay/)
 
 # Docker Images
 

@@ -670,6 +670,13 @@ function buttonPress(id) {
         class: "messag_alert",
       },
     });
+
+    iosOverlay({
+      //text: "¡Start",
+      class: "messag_alert",
+      duration: 2e3,
+      icon: bgSRC.replace(/"/g, ""),
+    });
   } else {
     $.iGrowl({
       title: "Not Defined Icon",
