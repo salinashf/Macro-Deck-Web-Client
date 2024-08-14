@@ -15,7 +15,7 @@ p, h1, h2, h3, h4, h5, h6, label , .text-w
 }
 
 .pressed {
-    transform: scale(0.9);
+    transform: scale(0.5);
 }
 
 .release-transition {
@@ -165,4 +165,13 @@ p, h1, h2, h3, h4, h5, h6, label , .text-w
         opacity: 0;
     }
 }
+:root {
+	--bgc: #1eceff;
+  }
+.messag_alert img {
+	border-radius: 10%;
+	border: 1px solid #121211;
+	background-color:  var(--bgc);
+   }
+
 
