@@ -637,6 +637,7 @@ function buttonPress(id) {
 
   let div = document.getElementById(id);
   let divStyle = window.getComputedStyle(div);
+  let btnSize = divStyle.width ?? "300px";
   var bgSRC = "";
   // Verifica si la propiedad backgroundImage existe y no está vacía
   if (divStyle.backgroundImage && divStyle.backgroundImage !== "none") {
@@ -670,13 +671,17 @@ function buttonPress(id) {
         class: "messag_alert",
       },
     });
-
+    let factor = 1.6;
+    let rstNewWithBtn = parseFloat(btnSize) * factor;
+    r.style.setProperty("--sizeBtn", rstNewWithBtn + "px");
     iosOverlay({
       //text: "¡Start",
       class: "messag_alert",
       duration: 2e3,
       icon: bgSRC.replace(/"/g, ""),
     });
+    let canVibrate = window.navigator.vibrate;
+    if (canVibrate) window.navigator.vibrate(1000);
   } else {
     $.iGrowl({
       title: "Not Defined Icon",

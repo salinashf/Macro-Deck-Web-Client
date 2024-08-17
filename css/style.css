@@ -1,3 +1,4 @@
+@import 'customProperties.css';
 body {
 	padding: 10px;
 }
@@ -165,9 +166,6 @@ p, h1, h2, h3, h4, h5, h6, label , .text-w
         opacity: 0;
     }
 }
-:root {
-	--bgc: #1eceff;
-  }
 .messag_alert img {
 	border-radius: 10%;
 	border: 1px solid #121211;
