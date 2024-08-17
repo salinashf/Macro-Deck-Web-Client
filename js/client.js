@@ -637,7 +637,10 @@ function buttonPress(id) {
 
   let div = document.getElementById(id);
   let divStyle = window.getComputedStyle(div);
-  let btnSize = divStyle.width ?? "300px";
+  let btnSize =
+    divStyle.width !== null && divStyle.width !== undefined
+      ? divStyle.width
+      : "300px";
   var bgSRC = "";
   // Verifica si la propiedad backgroundImage existe y no está vacía
   if (divStyle.backgroundImage && divStyle.backgroundImage !== "none") {
@@ -681,7 +684,7 @@ function buttonPress(id) {
       icon: bgSRC.replace(/"/g, ""),
     });
     let canVibrate = window.navigator.vibrate;
-    if (canVibrate) window.navigator.vibrate(1000);
+    if (canVibrate) navigator.vibrate([100, 200, 300]);
   } else {
     $.iGrowl({
       title: "Not Defined Icon",
