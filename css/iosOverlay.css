@@ -1,19 +1,21 @@
 @import 'customProperties.css';
+
 .ui-ios-overlay {
   z-index: 99999;
   position: fixed;
   top: 50%;
   left: 50%;
   width: var(--sizeBtn);
-  height:  var(--sizeBtn);
-    -webkit-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000,endColorstr=#cc000000);
+  height: var(--sizeBtn);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000, endColorstr=#cc000000);
   background: rgba(245, 12, 12, 0.8);
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
 }
+
 .ui-ios-overlay .title {
   color: #FFF;
   font-weight: bold;
@@ -25,12 +27,15 @@
   left: 0;
   width: 100%;
 }
+
 .ui-ios-overlay img {
   display: block;
   margin: 10% auto 0 auto;
   width: 80%;
-  height: 80%; 
+  height: 80%;
+  transform: var(--rotateImg);
 }
+
 .ui-ios-overlay .spinner {
   left: 50% !important;
   top: 40% !important;
@@ -50,24 +55,53 @@
 }
 
 @-webkit-keyframes ios-overlay-show {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
+
 @-moz-keyframes ios-overlay-show {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
+
 @-ms-keyframes ios-overlay-show {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
+
 @-o-keyframes ios-overlay-show {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
+
 @keyframes ios-overlay-show {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .ios-overlay-hide {
@@ -89,22 +123,51 @@
 }
 
 @-webkit-keyframes ios-overlay-hide {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
+
 @-moz-keyframes ios-overlay-hide {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
+
 @-ms-keyframes ios-overlay-hide {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
+
 @-o-keyframes ios-overlay-hide {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
+
 @keyframes ios-overlay-hide {
-  0% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
