@@ -249,7 +249,7 @@ function connect(url) {
             !document.webkitFullscreenElement &&
             !document.msFullscreenElement
           ) {
-            document.getElementById("btn-back").classList.toggle("d-none", false);
+            //document.getElementById("btn-back").classList.toggle("d-none", false);
           }
 
           if (recentConnections.includes(url) == false) {
