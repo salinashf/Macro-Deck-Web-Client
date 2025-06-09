@@ -1,6 +1,6 @@
 # Macro Deck Web Client for Macro Deck 2
 
-<img height="64px" src="https://macrodeck.org/images/works_with_macrodeck2.png" />
+<img height="64px" src="https://macro-deck.app/images/header-logo.png" />
 
 # Compatible devices
 
@@ -21,3 +21,6 @@ This app uses some awesome 3rd party libraries:
 - docker build -t macro_deck/web-image:1.0 .
 - docker run -d -p 8000:80 macro_deck/web-image:1.0
 - docker compose up -d
+
+# Rotate Icons
+- Allows you to rotate the icons, this was necessary if you want to put the screen in portrait mode and have the buttons/icons maintain a relationship 
