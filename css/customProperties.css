@@ -1,4 +1,5 @@
 :root {
 	--bgc: #1eceff;
 	--sizeBtn: 300px;
-  }
+	--rotateImg: rotate(360deg);
+}

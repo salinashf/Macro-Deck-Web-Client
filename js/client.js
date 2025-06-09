@@ -81,18 +81,18 @@ function getIPAbs() {
 
 $(window).resize(function () {
   /*
-	if (!document.fullscreenElement) {
-		if (connected) {
-			document.getElementById("btn-back").classList.toggle("d-none", false);
-		}
-		document.getElementById("btn-fullscreen").classList.toggle("d-none", false);
-		document.getElementById("btn-dark").classList.toggle("d-none", false);
-	} else {
-		document.getElementById("btn-back").classList.toggle("d-none", true);
-		document.getElementById("btn-dark").classList.toggle("d-none", true);
-		document.getElementById("btn-fullscreen").classList.toggle("d-none", true);
-	}
-	*/
+  if (!document.fullscreenElement) {
+    if (connected) {
+      document.getElementById("btn-back").classList.toggle("d-none", false);
+    }
+    document.getElementById("btn-fullscreen").classList.toggle("d-none", false);
+    document.getElementById("btn-dark").classList.toggle("d-none", false);
+  } else {
+    document.getElementById("btn-back").classList.toggle("d-none", true);
+    document.getElementById("btn-dark").classList.toggle("d-none", true);
+    document.getElementById("btn-fullscreen").classList.toggle("d-none", true);
+  }
+  */
   autoSize();
 });
 
@@ -249,9 +249,7 @@ function connect(url) {
             !document.webkitFullscreenElement &&
             !document.msFullscreenElement
           ) {
-            document
-              .getElementById("btn-back")
-              .classList.toggle("d-none", false);
+            //document.getElementById("btn-back").classList.toggle("d-none", false);
           }
 
           if (recentConnections.includes(url) == false) {
@@ -305,7 +303,7 @@ function connect(url) {
                     if (
                       this.buttons[i].Icon.split(".").length > 0 &&
                       icons.IconPacks[j].Name ==
-                        this.buttons[i].Icon.split(".")[0]
+                      this.buttons[i].Icon.split(".")[0]
                     ) {
                       iconPack = icons.IconPacks[j];
                     }
@@ -315,7 +313,7 @@ function connect(url) {
                     if (
                       this.buttons[i].Icon.split(".").length > 0 &&
                       iconPack.Icons[j].IconId ==
-                        this.buttons[i].Icon.split(".")[1]
+                      this.buttons[i].Icon.split(".")[1]
                     ) {
                       icon = iconPack.Icons[j];
                     }
@@ -333,9 +331,9 @@ function connect(url) {
 
             var label = document.getElementById(
               "label_" +
-                this.buttons[i].Position_Y +
-                "_" +
-                this.buttons[i].Position_X
+              this.buttons[i].Position_Y +
+              "_" +
+              this.buttons[i].Position_X
             );
             if (label) {
               if (this.buttons[i].Label && this.buttons[i].Label.LabelBase64) {
@@ -396,7 +394,7 @@ function connect(url) {
                   if (
                     obj.Buttons[0].Icon.split(".").length > 0 &&
                     iconPack.Icons[j].IconId ==
-                      obj.Buttons[0].Icon.split(".")[1]
+                    obj.Buttons[0].Icon.split(".")[1]
                   ) {
                     icon = iconPack.Icons[j];
                   }
@@ -422,9 +420,9 @@ function connect(url) {
 
           var label = document.getElementById(
             "label_" +
-              obj.Buttons[0].Position_Y +
-              "_" +
-              obj.Buttons[0].Position_X
+            obj.Buttons[0].Position_Y +
+            "_" +
+            obj.Buttons[0].Position_X
           );
           if (label) {
             if (obj.Buttons[0].Label && obj.Buttons[0].Label.LabelBase64) {
@@ -442,9 +440,9 @@ function connect(url) {
         case JsonMethod.UPDATE_LABEL:
           var label = document.getElementById(
             "label_" +
-              obj.Buttons[0].Position_Y +
-              "_" +
-              obj.Buttons[0].Position_X
+            obj.Buttons[0].Position_Y +
+            "_" +
+            obj.Buttons[0].Position_X
           );
           if (obj.Buttons[0].Label && obj.Buttons[0].Label.LabelBase64) {
             label.style.backgroundImage =
