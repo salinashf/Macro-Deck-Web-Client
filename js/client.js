@@ -80,19 +80,6 @@ function getIPAbs() {
 }
 
 $(window).resize(function () {
-  /*
-  if (!document.fullscreenElement) {
-    if (connected) {
-      document.getElementById("btn-back").classList.toggle("d-none", false);
-    }
-    document.getElementById("btn-fullscreen").classList.toggle("d-none", false);
-    document.getElementById("btn-dark").classList.toggle("d-none", false);
-  } else {
-    document.getElementById("btn-back").classList.toggle("d-none", true);
-    document.getElementById("btn-dark").classList.toggle("d-none", true);
-    document.getElementById("btn-fullscreen").classList.toggle("d-none", true);
-  }
-  */
   autoSize();
 });
 
@@ -101,8 +88,11 @@ $(document).ready(function () {
     e.preventDefault();
     var host = $(this).find('input[name="inputHost"]');
     var port = $(this).find('input[name="inputPort"]');
+    var is_full = $(this).find('input[name="full_screen"]');
 
-    connect("ws://" + host.val() + ":" + port.val() + "/");
+
+
+    connect("ws://" + host.val() + ":" + port.val() + "/", is_full.prop('checked'));
   });
 
   if (getCookie("clientId")) {
@@ -142,7 +132,7 @@ $(document).ready(function () {
       recentConnectionItem.classList.add("text-left");
       recentConnectionItem.setAttribute("id", recentConnections[i]);
       recentConnectionItem.addEventListener("click", function () {
-        connect(this.id);
+        connect(this.id, is_full);
       });
       var recentConnectionUrl = document.createElement("h6");
       recentConnectionUrl.classList.add("my-auto");
@@ -179,7 +169,7 @@ $(document).ready(function () {
   }
 });
 
-function connect(url) {
+function connect(url, is_full) {
   if (connected) return;
   document
     .getElementById("button-connect-spinner")
@@ -203,6 +193,9 @@ function connect(url) {
       API: apiVersion,
       "Device-Type": "Web",
     };
+    if (is_full) {
+      openFullscreen();
+    }
     doSend(JSON.stringify(jsonObj));
   };
 
@@ -215,7 +208,10 @@ function connect(url) {
   websocket.onmessage = function (e) {
     try {
       var obj = JSON.parse(e.data);
+      console.log("------onmessage inico------")
       console.log(obj);
+      console.log("------onmessage fin------")
+
       switch (obj.Method) {
         case JsonMethod.GET_CONFIG:
           document.getElementById("connect-container").innerHTML = "";
@@ -244,13 +240,7 @@ function connect(url) {
           var jsonObj = { Method: JsonMethod.GET_BUTTONS };
           doSend(JSON.stringify(jsonObj));
 
-          if (
-            !document.fullscreenElement &&
-            !document.webkitFullscreenElement &&
-            !document.msFullscreenElement
-          ) {
-            //document.getElementById("btn-back").classList.toggle("d-none", false);
-          }
+
 
           if (recentConnections.includes(url) == false) {
             recentConnections.push(url);
@@ -533,12 +523,8 @@ function autoSize() {
   var rows = document.getElementsByClassName("row");
   var container = document.getElementsByClassName("button-container")[0];
 
-  //var btnFullscreen = document.getElementById("btn-fullscreen");
-
   var offset = 0;
-  if (!document.fullscreenElement) {
-    //offset = 30 + btnFullscreen.offsetHeight * 2;
-  }
+
 
   var buttonSize = 100;
   var rowsCount = rows.length;
@@ -720,7 +706,10 @@ function buttonPressRelease(id) {
 }
 
 function doSend(message) {
+  console.log("------doSend inico------")
+  console.log(JSON.parse(message))
   websocket.send(message);
+  console.log("------doSend fin------")
 }
 
 function IsTouchDevice() {

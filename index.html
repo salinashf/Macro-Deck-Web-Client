@@ -304,15 +304,26 @@
               </div>
               <div class="col-auto">
                 <label for="rotateSelect" class="sr-only">ángulo:</label>
-                <select id="rotateSelect" class="form-control">
+                <select
+                  id="rotateSelect"
+                  name="rotateSelect"
+                  class="form-control"
+                >
                   <option value="360deg" selected>0°</option>
                   <option value="270deg">90°</option>
                   <option value="180deg">180°</option>
                   <option value="90deg">270°</option>
                 </select>
               </div>
+
+              <div class="col-auto">
+                <label for="full_screen">
+                  <input type="checkbox" id="full_screen" name="full_screen" />
+                  Mode Full Screen in buttons
+                </label>
+              </div>
             </div>
-            <button class="btn btn-primary mt-2 w-100" type="submit">
+            <button class="btn btn-primary mt-1 w-50" type="submit">
               <span
                 id="button-connect-spinner"
                 class="spinner-border spinner-border-sm d-none"
