@@ -16,7 +16,7 @@ var supportButtonReleaseLongPress = false;
 var buttonsGenerated = false;
 var noSleep = new NoSleep();
 var isEnabled = false;
-
+var ctrl_Growl = false;
 var apiVersion = 20;
 var version = "2.5.1";
 
@@ -651,27 +651,27 @@ function buttonPress(id) {
     let bgColor = divStyle.backgroundColor;
     var r = document.querySelector(":root");
     r.style.setProperty("--bgc", bgColor);
-
-    ctrl_Growl = false;
-    if (ctrl_Growl) {
-      $.iGrowl({
-        type: "success",
-        icon: "vicons-envelope",
-        animation: true,
-        message: "¡Start!",
-        small: true,
-        placement: {
-          x: "center",
-          y: "top",
-        },
-        animShow: "fadeInLeftBig",
-        animHide: "fadeOutDown",
-        delay: 100,
-        image: {
-          src: bgSRC.replace(/"/g, ""), // "/images/logo.png"
-          class: "messag_alert",
-        },
-      });
+    if (true) {
+      // vanillaToast.success('Ready', { duration: 5000, fadeDuration: 500, className: 'custom' });
+      vanillaToast.show('Ready', { duration: 5000, fadeDuration: 500 });
+      // $.iGrowl({
+      //   type: "success",
+      //   icon: "vicons-envelope",
+      //   animation: true,
+      //   message: "¡Start!",
+      //   small: true,
+      //   placement: {
+      //     x: 'center',
+      //     y: 'bottom'
+      //   },
+      //   animShow: "fadeInLeftBig",
+      //   animHide: "fadeOutDown",
+      //   delay: 100,
+      //   image: {
+      //     src: bgSRC.replace(/"/g, ""), // "/images/logo.png"
+      //     class: "messag_alert",
+      //   },
+      // });
     }
 
 
@@ -687,7 +687,6 @@ function buttonPress(id) {
     let canVibrate = window.navigator.vibrate;
     if (canVibrate) navigator.vibrate([100, 200, 300]);
   } else {
-    ctrl_Growl = false;
     if (ctrl_Growl) {
       $.iGrowl({
         title: "Not Defined Icon",
