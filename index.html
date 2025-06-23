@@ -219,6 +219,15 @@
 
     <link rel="stylesheet" href="css/igrowl.css" />
     <script src="js/igrowl.js"></script>
+    <link href="css/vanilla-toast.css" rel="stylesheet" />
+    <script src="js/vanilla-toast.js"></script>
+    <style>
+      #vanilla-toast.custom {
+        font-size: 3rem;
+        background-color: #159957;
+        background-image: linear-gradient(120deg, #155799, #159957);
+      }
+    </style>
   </head>
 
   <body id="body" onload="" class="bg-dark">
@@ -304,15 +313,26 @@
               </div>
               <div class="col-auto">
                 <label for="rotateSelect" class="sr-only">ángulo:</label>
-                <select id="rotateSelect" class="form-control">
+                <select
+                  id="rotateSelect"
+                  name="rotateSelect"
+                  class="form-control"
+                >
                   <option value="360deg" selected>0°</option>
                   <option value="270deg">90°</option>
                   <option value="180deg">180°</option>
                   <option value="90deg">270°</option>
                 </select>
               </div>
+
+              <div class="col-auto">
+                <label for="full_screen">
+                  <input type="checkbox" id="full_screen" name="full_screen" />
+                  Mode Full Screen in buttons
+                </label>
+              </div>
             </div>
-            <button class="btn btn-primary mt-2 w-100" type="submit">
+            <button class="btn btn-primary mt-1 w-50" type="submit">
               <span
                 id="button-connect-spinner"
                 class="spinner-border spinner-border-sm d-none"

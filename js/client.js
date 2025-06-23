@@ -14,7 +14,9 @@ var pressTimer;
 var longPress = false;
 var supportButtonReleaseLongPress = false;
 var buttonsGenerated = false;
-
+var noSleep = new NoSleep();
+var isEnabled = false;
+var ctrl_Growl = false;
 var apiVersion = 20;
 var version = "2.5.1";
 
@@ -48,6 +50,13 @@ function openFullscreen() {
     elem.msRequestFullscreen();
   }
 }
+function enable_not_sleep() {
+  if (!isEnabled) {
+    noSleep.enable(); // ¡mantén la pantalla encendida!
+    isEnabled = true;
+  }
+}
+
 
 var dark = true;
 function toggleDark() {
@@ -80,19 +89,6 @@ function getIPAbs() {
 }
 
 $(window).resize(function () {
-  /*
-  if (!document.fullscreenElement) {
-    if (connected) {
-      document.getElementById("btn-back").classList.toggle("d-none", false);
-    }
-    document.getElementById("btn-fullscreen").classList.toggle("d-none", false);
-    document.getElementById("btn-dark").classList.toggle("d-none", false);
-  } else {
-    document.getElementById("btn-back").classList.toggle("d-none", true);
-    document.getElementById("btn-dark").classList.toggle("d-none", true);
-    document.getElementById("btn-fullscreen").classList.toggle("d-none", true);
-  }
-  */
   autoSize();
 });
 
@@ -101,8 +97,11 @@ $(document).ready(function () {
     e.preventDefault();
     var host = $(this).find('input[name="inputHost"]');
     var port = $(this).find('input[name="inputPort"]');
+    var is_full = $(this).find('input[name="full_screen"]');
 
-    connect("ws://" + host.val() + ":" + port.val() + "/");
+
+
+    connect("ws://" + host.val() + ":" + port.val() + "/", is_full.prop('checked'));
   });
 
   if (getCookie("clientId")) {
@@ -142,7 +141,7 @@ $(document).ready(function () {
       recentConnectionItem.classList.add("text-left");
       recentConnectionItem.setAttribute("id", recentConnections[i]);
       recentConnectionItem.addEventListener("click", function () {
-        connect(this.id);
+        connect(this.id, is_full);
       });
       var recentConnectionUrl = document.createElement("h6");
       recentConnectionUrl.classList.add("my-auto");
@@ -179,7 +178,7 @@ $(document).ready(function () {
   }
 });
 
-function connect(url) {
+function connect(url, is_full) {
   if (connected) return;
   document
     .getElementById("button-connect-spinner")
@@ -203,7 +202,12 @@ function connect(url) {
       API: apiVersion,
       "Device-Type": "Web",
     };
+    if (is_full) {
+      openFullscreen();
+      enable_not_sleep()
+    }
     doSend(JSON.stringify(jsonObj));
+
   };
 
   websocket.onclose = function (e) {
@@ -215,7 +219,10 @@ function connect(url) {
   websocket.onmessage = function (e) {
     try {
       var obj = JSON.parse(e.data);
+      console.log("------onmessage inico------")
       console.log(obj);
+      console.log("------onmessage fin------")
+
       switch (obj.Method) {
         case JsonMethod.GET_CONFIG:
           document.getElementById("connect-container").innerHTML = "";
@@ -244,13 +251,7 @@ function connect(url) {
           var jsonObj = { Method: JsonMethod.GET_BUTTONS };
           doSend(JSON.stringify(jsonObj));
 
-          if (
-            !document.fullscreenElement &&
-            !document.webkitFullscreenElement &&
-            !document.msFullscreenElement
-          ) {
-            //document.getElementById("btn-back").classList.toggle("d-none", false);
-          }
+
 
           if (recentConnections.includes(url) == false) {
             recentConnections.push(url);
@@ -533,12 +534,8 @@ function autoSize() {
   var rows = document.getElementsByClassName("row");
   var container = document.getElementsByClassName("button-container")[0];
 
-  //var btnFullscreen = document.getElementById("btn-fullscreen");
-
   var offset = 0;
-  if (!document.fullscreenElement) {
-    //offset = 30 + btnFullscreen.offsetHeight * 2;
-  }
+
 
   var buttonSize = 100;
   var rowsCount = rows.length;
@@ -654,24 +651,30 @@ function buttonPress(id) {
     let bgColor = divStyle.backgroundColor;
     var r = document.querySelector(":root");
     r.style.setProperty("--bgc", bgColor);
-    $.iGrowl({
-      type: "success",
-      icon: "vicons-envelope",
-      animation: true,
-      message: "¡Start!",
-      small: true,
-      placement: {
-        x: "center",
-        y: "top",
-      },
-      animShow: "fadeInLeftBig",
-      animHide: "fadeOutDown",
-      delay: 100,
-      image: {
-        src: bgSRC.replace(/"/g, ""), // "/images/logo.png"
-        class: "messag_alert",
-      },
-    });
+    if (true) {
+      // vanillaToast.success('Ready', { duration: 5000, fadeDuration: 500, className: 'custom' });
+      vanillaToast.show('Ready', { duration: 5000, fadeDuration: 500 });
+      // $.iGrowl({
+      //   type: "success",
+      //   icon: "vicons-envelope",
+      //   animation: true,
+      //   message: "¡Start!",
+      //   small: true,
+      //   placement: {
+      //     x: 'center',
+      //     y: 'bottom'
+      //   },
+      //   animShow: "fadeInLeftBig",
+      //   animHide: "fadeOutDown",
+      //   delay: 100,
+      //   image: {
+      //     src: bgSRC.replace(/"/g, ""), // "/images/logo.png"
+      //     class: "messag_alert",
+      //   },
+      // });
+    }
+
+
     let factor = 1.6;
     let rstNewWithBtn = parseFloat(btnSize) * factor;
     r.style.setProperty("--sizeBtn", rstNewWithBtn + "px");
@@ -684,20 +687,22 @@ function buttonPress(id) {
     let canVibrate = window.navigator.vibrate;
     if (canVibrate) navigator.vibrate([100, 200, 300]);
   } else {
-    $.iGrowl({
-      title: "Not Defined Icon",
-      message: "¡Start Action!",
-      icon: "vicons-support",
-      small: true,
-      animation: true,
-      placement: {
-        x: "center",
-        y: "top",
-      },
-      animShow: "fadeInLeftBig",
-      animHide: "fadeOutDown",
-      delay: 100,
-    });
+    if (ctrl_Growl) {
+      $.iGrowl({
+        title: "Not Defined Icon",
+        message: "¡Start Action!",
+        icon: "vicons-support",
+        small: true,
+        animation: true,
+        placement: {
+          x: "center",
+          y: "top",
+        },
+        animShow: "fadeInLeftBig",
+        animHide: "fadeOutDown",
+        delay: 100,
+      });
+    }
   }
 }
 
@@ -720,7 +725,10 @@ function buttonPressRelease(id) {
 }
 
 function doSend(message) {
+  console.log("------doSend inico------")
+  console.log(JSON.parse(message))
   websocket.send(message);
+  console.log("------doSend fin------")
 }
 
 function IsTouchDevice() {
