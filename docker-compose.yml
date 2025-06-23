@@ -1,8 +1,7 @@
 services:
   macro_deck:
-    image: macro_deck/web-image:1.0
+    image: salinashf/macro_deck-web-client:1.1
     container_name: custom_macro_deck
-    #volumes:
-    #  - /nginx/html:/usr/share/nginx/html
     ports:
       - 8000:80
+
