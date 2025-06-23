@@ -15,6 +15,7 @@ This app uses some awesome 3rd party libraries:
 - [NoSleep.js (MIT license)](https://github.com/richtr/NoSleep.js/)
 - [iGrowl.js (MIT license)](https://catc.github.io/iGrowl/)
 - [iosOverlay.js (MIT license)](https://taitems.github.io/iOS-Overlay/)
+- [vanilla-toast.js (MIT license)](https://github.com/talsu/vanilla-toast?tab=readme-ov-file)
 
 # Docker Images
 
@@ -23,4 +24,18 @@ This app uses some awesome 3rd party libraries:
 - docker compose up -d
 
 # Rotate Icons
-- Allows you to rotate the icons, this was necessary if you want to put the screen in portrait mode and have the buttons/icons maintain a relationship 
+
+- Allows you to rotate the icons, this was necessary if you want to put the screen in portrait mode and have the buttons/icons maintain a relationship
+
+# Full Screen
+
+- Allows the app to start in full screen mode
+- Each time a button is pressed, it may vibrate, displaying the pressed icon
+
+# View Result
+
+- Allows the app to start in full screen mode
+
+- Each time a button is pressed, it may vibrate, displaying the pressed icon
+- Demo of the website
+  https://salinashf.github.io/Macro-Deck-Web-Client/
