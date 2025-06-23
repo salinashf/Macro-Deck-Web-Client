@@ -14,6 +14,8 @@ var pressTimer;
 var longPress = false;
 var supportButtonReleaseLongPress = false;
 var buttonsGenerated = false;
+var noSleep = new NoSleep();
+var isEnabled = false;
 
 var apiVersion = 20;
 var version = "2.5.1";
@@ -48,6 +50,13 @@ function openFullscreen() {
     elem.msRequestFullscreen();
   }
 }
+function enable_not_sleep() {
+  if (!isEnabled) {
+    noSleep.enable(); // ¡mantén la pantalla encendida!
+    isEnabled = true;
+  }
+}
+
 
 var dark = true;
 function toggleDark() {
@@ -195,8 +204,10 @@ function connect(url, is_full) {
     };
     if (is_full) {
       openFullscreen();
+      enable_not_sleep()
     }
     doSend(JSON.stringify(jsonObj));
+
   };
 
   websocket.onclose = function (e) {
@@ -640,24 +651,30 @@ function buttonPress(id) {
     let bgColor = divStyle.backgroundColor;
     var r = document.querySelector(":root");
     r.style.setProperty("--bgc", bgColor);
-    $.iGrowl({
-      type: "success",
-      icon: "vicons-envelope",
-      animation: true,
-      message: "¡Start!",
-      small: true,
-      placement: {
-        x: "center",
-        y: "top",
-      },
-      animShow: "fadeInLeftBig",
-      animHide: "fadeOutDown",
-      delay: 100,
-      image: {
-        src: bgSRC.replace(/"/g, ""), // "/images/logo.png"
-        class: "messag_alert",
-      },
-    });
+
+    ctrl_Growl = false;
+    if (ctrl_Growl) {
+      $.iGrowl({
+        type: "success",
+        icon: "vicons-envelope",
+        animation: true,
+        message: "¡Start!",
+        small: true,
+        placement: {
+          x: "center",
+          y: "top",
+        },
+        animShow: "fadeInLeftBig",
+        animHide: "fadeOutDown",
+        delay: 100,
+        image: {
+          src: bgSRC.replace(/"/g, ""), // "/images/logo.png"
+          class: "messag_alert",
+        },
+      });
+    }
+
+
     let factor = 1.6;
     let rstNewWithBtn = parseFloat(btnSize) * factor;
     r.style.setProperty("--sizeBtn", rstNewWithBtn + "px");
@@ -670,20 +687,23 @@ function buttonPress(id) {
     let canVibrate = window.navigator.vibrate;
     if (canVibrate) navigator.vibrate([100, 200, 300]);
   } else {
-    $.iGrowl({
-      title: "Not Defined Icon",
-      message: "¡Start Action!",
-      icon: "vicons-support",
-      small: true,
-      animation: true,
-      placement: {
-        x: "center",
-        y: "top",
-      },
-      animShow: "fadeInLeftBig",
-      animHide: "fadeOutDown",
-      delay: 100,
-    });
+    ctrl_Growl = false;
+    if (ctrl_Growl) {
+      $.iGrowl({
+        title: "Not Defined Icon",
+        message: "¡Start Action!",
+        icon: "vicons-support",
+        small: true,
+        animation: true,
+        placement: {
+          x: "center",
+          y: "top",
+        },
+        animShow: "fadeInLeftBig",
+        animHide: "fadeOutDown",
+        delay: 100,
+      });
+    }
   }
 }
 
